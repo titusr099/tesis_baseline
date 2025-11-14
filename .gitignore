@@ -1,0 +1,162 @@
+__pycache__/
+*.h5
+*.ckpt
+*.pt
+*.pth
+*/logs/
+*/output/
+.env
+*.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python compiled files and caches
+*.py[cod]
+*$py.class
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.pyre/
+.pyrightcache/
+.cache/
+pip-wheel-metadata/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+venv.bak/
+
+# Packaging / build artifacts
+dist/
+build/
+.eggs/
+*.egg
+*.egg-info/
+*.whl
+
+# Distribution archives
+*.tar
+*.tar.gz
+*.zip
+*.gz
+*.bz2
+*.xz
+
+# Logs and runtime files
+*.log
+*.out
+*.err
+*.pid
+run/
+tmp/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+*.project
+.settings/
+
+# Jupyter / IPython runtime
+profile_default/
+ipython_config.py
+*.nbconvert.ipynb
+
+# Documentation builds
+_site/
+_site_cache/
+docs/_build/
+_build/
+htmlcov/
+
+# Test / CI / tooling
+.tox/
+.nox/
+coverage.xml
+.coverage
+.coverage.*
+pytest_cache/
+nose2-junit.xml
+
+# Data, models, artifacts (user content / large files)
+data/METR-LA
+data/PEMS-BAY
+datasets/
+raw_data/
+processed_data/
+models/
+checkpoints/
+mlruns/
+*.bin
+*.data
+*.model
+*.weights
+
+*.csv
+*.npz
+
+# Secrets and keys
+*.pem
+*.key
+*.crt
+*.p12
+*.jks
+secrets.*
+credentials
+aws_credentials
+id_rsa
+id_rsa.pub
+
+# Docker / containers
+docker-compose.override.yml
+docker-compose.*.yml
+.docker/
+
+# Terraform
+.terraform/
+terraform.tfstate
+terraform.tfstate.*
+
+# Node / frontend
+node_modules/
+npm-debug.log*
+yarn-error.log
+dist-node/
+
+# Misc binaries and build outputs
+*.so
+*.dll
+*.dylib
+*.exe
+*.o
+*.obj
+*.a
+
+# Vagrant / virtualization
+.vagrant/
+
+# Other common ignores
+*.swp
+*~ 
+
+
+
+/DCRNN_v1
+/DCRNN_predecir_adj_dina
+
+
+# Datasets grandes – NO subir a GitHub
+DCRNN_predecir_posicion/data/METR-LA/*.npz
+DCRNN_predecir_posicion/data/PEMS-BAY/*.npz
+DCRNN/data/student_pairs/midataset.csv
+
+# Opcional: ignorar todos los npz/csv de data
+**/data/**/*.npz
+**/data/**/*.csv

@@ -1,0 +1,49 @@
+base_dir: .
+cl_decay_steps: 2000
+data:
+  batch_size: 32
+  dataset_dir: data/student_nodes
+  graph_pkl_filename: data/student_nodes/adj_mx.pkl
+  test_batch_size: 32
+  val_batch_size: 32
+filter_type: random_walk
+log_dir: ./logs/dcrnn_students
+log_level: INFO
+max_diffusion_step: 2
+model:
+  cl_decay_steps: 2000
+  dropout: 0.0
+  filter_type: random_walk
+  horizon: 12
+  input_dim: 3
+  l1_decay: 0
+  max_diffusion_step: 2
+  num_nodes: 10
+  num_rnn_layers: 2
+  output_dim: 2
+  rnn_units: 32
+  seq_len: 12
+  use_curriculum_learning: true
+num_rnn_layers: 2
+rnn_units: 32
+train:
+  base_lr: 0.001
+  epoch: 3
+  epochs: 5
+  epsilon: 0.001
+  global_step: 7560
+  learning_rate: 0.001
+  log_dir: ./dcrnn_R_2_h_12_32-32_lr_0.001_bs_32_1111040404/
+  lr_decay_ratio: 0.97
+  max_grad_norm: 5
+  max_to_keep: 20
+  min_learning_rate: 1.0e-05
+  model_filename: ./dcrnn_R_2_h_12_32-32_lr_0.001_bs_32_1111040404/models-5.1800-7560
+  optimizer: adam
+  patience: 3
+  steps:
+  - 10
+  - 20
+  - 25
+  test_every_n_epochs: 10
+use_cpu_only: true
