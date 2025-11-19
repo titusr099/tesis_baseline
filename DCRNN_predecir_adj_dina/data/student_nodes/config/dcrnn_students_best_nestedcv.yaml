@@ -1,0 +1,83 @@
+---
+# === paths & logging ===
+base_dir: .
+log_level: INFO
+# <<--- CLAVE PARA run_demo
+log_dir: ./logs/dcrnn_students_nestedCV
+
+# === data ===
+data:
+  dynamic_adj: true
+  adjacency_transform: distance
+  adjacency_sigma: 1.0
+  adjacency_feed_mode: last
+  # Guarda las matrices por timestep (se crean en log_dir/adj_matrices si no se especifica)
+  adj_save_dir: ./logs/dcrnn_students_nestedCV/adj_matrices
+  # Si true, el modelo recibirá una secuencia de adyacencias (seq_len, N, N)
+  per_t_dynamic_adj: true
+  # Apuntar al dataset generado en `data/student_nodes` (train/val/test .npz)
+  dataset_dir: data/student_nodes
+  # El archivo de adyacencia esperado (puede generarse con create_fully_connected_adj.py)
+  graph_pkl_filename: data/student_nodes/adj_mx.pkl
+  batch_size: 32
+  val_batch_size: 32
+  test_batch_size: 32
+
+# === model ===
+model:
+  # Ajustado para dataset de nodos (student_nodes). Si generaste datos para 10 estudiantes,
+  # num_nodes debe ser 10. Si generaste otro número, cámbialo aquí.
+  num_nodes: 10
+  # El dataset tiene 3 canales (p.ej. x,y,<otro>), conservarlos en input_dim.
+  input_dim: 3
+  # Predecimos posiciones x,y -> output_dim = 2 (las dos primeras features)
+  output_dim: 2
+  seq_len: 12                # historia (coincide con el generador de datos usado)
+  horizon: 12                # horizonte a predecir
+
+  filter_type: random_walk   # elegido por nested-CV
+  max_diffusion_step: 1      # elegido por nested-CV
+  num_rnn_layers: 1          # elegido por nested-CV
+  rnn_units: 128             # elegido por nested-CV
+  cl_decay_steps: 2000       # curriculum learning decay
+  use_curriculum_learning: true
+
+  # extras comunes en algunos forks:
+  l1_decay: 0
+  dropout: 0.0               # nested-CV winner
+
+# === (algunos supervisores leen estos en top-level; los duplico para compatibilidad) ===
+filter_type: random_walk
+max_diffusion_step: 1
+num_rnn_layers: 1
+rnn_units: 128
+cl_decay_steps: 2000
+
+# === train ===
+train:
+  base_lr: 0.0001           # (equiv. learning_rate)
+  learning_rate: 0.0001     # por si tu fork usa este nombre
+  epochs: 10                # entrenamiento: epocas (winner)
+  patience: 10              # early stopping (mantener generoso)
+  lr_decay_ratio: 0.95
+  min_learning_rate: 1.0e-06
+  max_grad_norm: 5
+  optimizer: adam
+
+  # programar decays por epochs (opcional)
+  steps: [10, 15]
+  test_every_n_epochs: 1
+
+  # otros campos que a veces aparecen en los checkpoints del repo:
+  global_step: 0
+  epoch: 0
+  epsilon: 1.0e-3
+  max_to_keep: 20
+
+  # <<--- basename del checkpoint (sin .index / .data-00000-of-00001)
+  # Para iniciar entrenamiento desde cero, dejar en null. Si quieres reanudar,
+  # pon aquí el path al checkpoint.
+  model_filename: null
+
+# === runtime ===
+use_cpu_only: true            # evita intentar GPU con CUDA antigua
